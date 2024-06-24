@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.aaron.usercenter.model.domain.User;
 import com.aaron.usercenter.service.UserService;
 import com.aaron.usercenter.mapper.UserMapper;
+import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -23,6 +24,7 @@ import java.util.regex.Pattern;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
 
+    @Resource
     private UserMapper userMapper;
 
     @Override
@@ -44,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             return -1;
         }
         //密码和校验密码相同
-        if (userAccount.equals(checkPassword)) {
+        if (!userPassword.equals(checkPassword)) {
             return -1;
         }
         //账户不能重复

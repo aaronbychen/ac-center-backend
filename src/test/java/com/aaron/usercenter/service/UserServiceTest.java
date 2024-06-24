@@ -21,8 +21,8 @@ public class UserServiceTest {
     @Test
     public void testAddUser() {
         User user = new User();
-        user.setUsername("dogAaron");
-        user.setUserAccount("123");
+        user.setUsername("dogDogAaron");
+        user.setUserAccount("123666");
         user.setAvatarUrl("https://crosspointe.com/wp-content/uploads/2020/09/avatar-male.jpg");
         user.setGender(0);
         user.setUserPassword("xxx");
@@ -65,8 +65,8 @@ public class UserServiceTest {
         result = userService.userRegister(userAccount, userPassword, checkPassword);
         Assertions.assertEquals(-1, result);
 
-//        userAccount = "aaron";
-//        result = userService.userRegister(userAccount, userPassword, checkPassword);
-//        Assertions.assertEquals(-1, result);
+        userAccount = "aaron";
+        result = userService.userRegister(userAccount, userPassword, checkPassword);
+        Assertions.assertTrue(result > 0);
     }
 }
