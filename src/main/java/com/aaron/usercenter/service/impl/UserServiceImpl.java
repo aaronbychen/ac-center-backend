@@ -39,17 +39,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (userPassword.length() < 8 || checkPassword.length() < 8) {
             return -1;
         }
-        //账户不能包含特殊字符
+        // 账户不能包含特殊字符
         String inValidPattern = "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*()——+|{}【】‘；：”“’。，、？\\\\\\\\]";
         Matcher matcher = Pattern.compile(inValidPattern).matcher(userAccount);
         if (matcher.find()) {
             return -1;
         }
-        //密码和校验密码相同
+        // 密码和校验密码相同
+        // 有bug记得检查变量名
         if (!userPassword.equals(checkPassword)) {
             return -1;
         }
-        //账户不能重复
+        // 账户不能重复
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userAccount", userAccount);
         long count = userMapper.selectCount(queryWrapper);

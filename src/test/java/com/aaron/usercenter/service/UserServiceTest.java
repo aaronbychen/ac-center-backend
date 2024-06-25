@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class UserServiceTest {
-
+    //记得加上注释
     @Resource
     private UserService userService;
 
