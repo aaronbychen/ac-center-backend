@@ -1,13 +1,13 @@
 package com.aaron.usercenter.model.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
- * 用户
+ * 
  * @TableName user
  */
 @TableName(value ="user")
@@ -70,10 +70,15 @@ public class User implements Serializable {
     private Date updateTime;
 
     /**
-     * 是否删除
+     * 是否删除 0 - 否
      */
-    @TableLogic
+    @TableLogic 
     private Integer isDeleted;
+
+    /**
+     * 用户角色 0 - 普通用户 1 - 管理员
+     */
+    private Integer userRole;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
