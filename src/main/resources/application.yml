@@ -16,6 +16,8 @@ spring:
 #      data-locations: classpath:db/data-h2.sql
 server:
   port: 8080
+  servlet:
+    context-path: /api
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
