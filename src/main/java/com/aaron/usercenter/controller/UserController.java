@@ -83,7 +83,7 @@ public class UserController {
     /**
      * 是否为管理员
      *
-     * @param request http 请求
+     * @param request 请求
      * @return 是否为管理员
      */
     private boolean isAdmin(HttpServletRequest request) {
