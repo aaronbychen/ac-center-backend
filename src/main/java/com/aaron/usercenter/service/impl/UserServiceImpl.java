@@ -41,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
         // 1. 校验
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
-            // todo 修改为自定义异常
+            // TODO 修改为自定义异常
             return -1;
         }
         if (userAccount.length() < 4) {
@@ -125,6 +125,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
      */
     @Override
     public User getSafetyUser(User originalUser) {
+        if (originalUser == null) {
+            return null;
+        }
         User safetyUser = new User();
         safetyUser.setId(originalUser.getId());
         safetyUser.setUsername(originalUser.getUsername());
