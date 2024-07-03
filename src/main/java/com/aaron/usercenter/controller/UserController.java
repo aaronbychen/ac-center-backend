@@ -1,7 +1,9 @@
 package com.aaron.usercenter.controller;
 
 import com.aaron.usercenter.common.BaseResponse;
+import com.aaron.usercenter.common.ErrorCode;
 import com.aaron.usercenter.common.ResultUtils;
+import com.aaron.usercenter.exception.BusinessException;
 import com.aaron.usercenter.model.domain.User;
 import com.aaron.usercenter.request.UserLoginRequest;
 import com.aaron.usercenter.request.UserRegisterRequest;
@@ -11,8 +13,6 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,13 +34,13 @@ public class UserController {
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
         if (userRegisterRequest == null) {
-            return null;
+            throw new BusinessException(ErrorCode.NULL_ERROR, "Null register request");
         }
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "Empty parameters");
         }
         long res = userService.userRegister(userAccount, userPassword, checkPassword);
         return ResultUtils.success(res);
@@ -49,7 +49,7 @@ public class UserController {
     @PostMapping("/login")
     public BaseResponse<User> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
         if (userLoginRequest == null) {
-            return null;
+            throw new BusinessException(ErrorCode.NULL_ERROR, "Null login request");
         }
         String userAccount = userLoginRequest.getUserAccount();
         String userPassword = userLoginRequest.getUserPassword();
@@ -63,7 +63,7 @@ public class UserController {
     @PostMapping("/logout")
     public BaseResponse<Integer> userLogout(HttpServletRequest request) {
         if (request == null) {
-            return null;
+            throw new BusinessException(ErrorCode.NULL_ERROR, "Null logout request");
         }
         Integer res = userService.userLogout(request);
         return ResultUtils.success(res);
@@ -74,7 +74,7 @@ public class UserController {
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
         User currentUser = (User) userObj;
         if (currentUser == null) {
-            return null;
+            throw new BusinessException(ErrorCode.NULL_ERROR, "Null user");
         }
         long userId = currentUser.getId();
         // TODO 校验用户是否合法
@@ -86,8 +86,7 @@ public class UserController {
     @GetMapping("/search")
     public BaseResponse<List<User>> searchUsers(String username, HttpServletRequest request) {
         if (!isAdmin(request)) {
-            //todo
-            return null;
+            throw new BusinessException(ErrorCode.NO_AUTH, "No search authority");
         }
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(username)) {
@@ -101,10 +100,10 @@ public class UserController {
     @PostMapping("/delete")
     public BaseResponse<Boolean> deleteUser(@RequestBody long id, HttpServletRequest request) {
         if (!isAdmin(request)) {
-            return null;
+            throw new BusinessException(ErrorCode.NO_AUTH, "No delete authority");
         }
         if (id <= 0) {
-            return null;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "Wrong id");
         }
         boolean b = userService.removeById(id);
         return ResultUtils.success(b);
