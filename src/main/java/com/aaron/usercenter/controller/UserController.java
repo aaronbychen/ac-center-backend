@@ -74,7 +74,7 @@ public class UserController {
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
         User currentUser = (User) userObj;
         if (currentUser == null) {
-            throw new BusinessException(ErrorCode.NULL_ERROR, "Null user");
+            throw new BusinessException(ErrorCode.NOT_LOGIN, "Not logged in");
         }
         long userId = currentUser.getId();
         // TODO 校验用户是否合法

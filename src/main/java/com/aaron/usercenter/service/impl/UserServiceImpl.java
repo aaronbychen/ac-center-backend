@@ -108,7 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         User user = userMapper.selectOne(queryWrapper);
         // 用户不存在
         if (user == null) {
-            throw new BusinessException(ErrorCode.NOT_LOGIN, "User not logged in. Check userAccount and userPassword");
+            throw new BusinessException(ErrorCode.NULL_ERROR, "Log in fails. Check account and password");
         }
         // 3. 用户脱敏
         User safetyUser = getSafetyUser(user);
