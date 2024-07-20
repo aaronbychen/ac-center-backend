@@ -20,7 +20,7 @@ import static com.aaron.usercenter.constant.UserConstant.ADMIN_ROLE;
 import static com.aaron.usercenter.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
- * 用户接口
+ * User interface
  *
  * @author aaron
  */
@@ -109,10 +109,10 @@ public class UserController {
     }
 
     /**
-     * 是否为管理员
+     * IsAdmin
      *
-     * @param request 请求
-     * @return 是否为管理员
+     * @param request request
+     * @return if is admin
      */
     private boolean isAdmin(HttpServletRequest request) {
         // 仅管理员可查询
