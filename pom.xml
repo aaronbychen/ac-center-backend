@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.aaron</groupId>
-    <artifactId>user-center</artifactId>
+    <artifactId>ac-center-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>user-center</name>
-    <description>user-center</description>
+    <name>ac-center</name>
+    <description>ac-center</description>
     <url/>
     <licenses>
         <license/>
