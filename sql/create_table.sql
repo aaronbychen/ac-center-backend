@@ -1,4 +1,3 @@
--- auto-generated definition
 create table user
 (
     id           bigint auto_increment comment 'id'
